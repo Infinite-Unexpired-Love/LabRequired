@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react';
 import type { ParagraphLink } from '../documents';
 import React, { createRef } from 'react';
 import { Helmet } from 'react-helmet'
+import styles from '../styles/balloon.module.css'
 
 class SmallBalloon {
   constructor(public styles: CSSProperties, public randomBias: number) { }
@@ -120,7 +121,7 @@ class Balloon extends React.Component<BalloonProps, BalloonState> {
         key={
           index + this.state.currentRotation * this.state.maxBalloons
         }
-        className="Balloon"
+        className={styles.Balloon}
         width="100%"
         height="100%"
         viewBox="0 0 2517 2656"
@@ -158,14 +159,14 @@ class Balloon extends React.Component<BalloonProps, BalloonState> {
           <title>I/O Lab</title>
         </Helmet>
         <div
-          className="BalloonWrapper"
+          className={styles.BalloonWrapper}
           style={this.balloonWrapperStyleGenerator()}
           ref={this.balloonMachineRef}
         >
           {this.state.balloons}
         </div>
         <div
-          className="Block"
+          className={styles.Block}
           onMouseEnter={() => {
             this.setState({ foldingNav: false });
           }}
@@ -174,8 +175,7 @@ class Balloon extends React.Component<BalloonProps, BalloonState> {
           }}
         >
           <div
-            className={`Navigations ${this.state.foldingNav ? 'Fold' : ''
-              }`}
+            className={ `${styles.Navigations} ${this.state.foldingNav ? styles.Fold : ''}`}
             style={this.navigationStyleGenerator()}
           >
             {navigations.map((navigation, index) => (
@@ -187,13 +187,13 @@ class Balloon extends React.Component<BalloonProps, BalloonState> {
                 {navigation.name}
                 {
                   navigation.blank &&
-                  <img className='External' src='/assets/external.svg' />
+                  <img className={styles.External} src='/assets/external.svg' />
                 }
 
               </a>
             ))}
           </div>
-          <div className="Header">
+          <div className={styles.Header}>
             I/O La
             <span style={{ marginLeft: '-.055em' }}>b</span>
           </div>
@@ -204,5 +204,11 @@ class Balloon extends React.Component<BalloonProps, BalloonState> {
 }
 
 export default function BalloonWrapper(props: BalloonProps) {
-  return <Balloon {...props} />;
+  return (
+      <>
+        <Balloon {...props} />
+      </>
+  );
 }
+
+
